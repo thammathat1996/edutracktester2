@@ -27,6 +27,17 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
         
+        /* 📜 Risograph Paper Noise Overlay */
+        body.paper-grain::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            opacity: 0.07;
+            pointer-events: none;
+            z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        
         .custom-scrollbar::-webkit-scrollbar { height: 10px; width: 10px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-left: 3px solid #111827; border-right: 3px solid #111827; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #111827; border: 2px solid #f1f5f9; border-radius: 0; }
@@ -40,7 +51,7 @@
         .pastel-3 { background-color: #00A36C; color: white;}
         .pastel-4 { background-color: #2176FF; color: white;}
         .pastel-5 { background-color: #9D4EDD; color: white;}
-        .pastel-6 { background-color: #ffffff; }
+        .pastel-6 { background-color: #FAF5E6; }
 
         /* Neo-Brutalism Utilities (Hard Borders & Shadows) */
         .neo-border { border: 4px solid #111827; }
@@ -48,6 +59,9 @@
         .neo-shadow-sm { box-shadow: 4px 4px 0px #111827; }
         .neo-btn { transition: all 0.1s ease; outline: none; }
         .neo-btn:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px #111827; }
+        
+        /* Vintage Risograph styling overrides */
+        .bg-white { background-color: #FAF5E6 !important; }
         
         /* Animations */
         @keyframes pulse-green { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
@@ -82,8 +96,8 @@
         .form2 .square:nth-child(2) { animation-delay: 0.6s; }
         .form2 .square:nth-child(1) { animation-delay: 0.8s; }
 
-        /* Background Pattern */
-        .dot-pattern { background-image: radial-gradient(#111827 2px, transparent 2px); background-size: 40px 40px; opacity: 0.15; }
+        /* Background Pattern (Risograph printed halftone dot screen) */
+        .dot-pattern { background-image: radial-gradient(#111827 1.5px, transparent 1.5px); background-size: 20px 20px; opacity: 0.08; }
 
         /* QR Scanner Overrides (Fix for Full Camera View) */
         #qr-reader { width: 100% !important; height: 100% !important; min-height: 280px; border-radius: 0; overflow: hidden; border: 4px solid #111827; box-shadow: 6px 6px 0px #111827; background: #000; position: relative;}
@@ -102,46 +116,46 @@
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px) rotate(-1deg); } 75% { transform: translateX(5px) rotate(1deg); } }
         .anim-shake { animation: shake 0.1s ease-in-out infinite; }
 
-        /* ---------------- DARK MODE OVERRIDES ---------------- */
-        html.dark body { background-color: #0f172a; color: #f8fafc; }
-        html.dark .dot-pattern { background-image: radial-gradient(#ffffff 2px, transparent 2px); opacity: 0.05; }
+        /* ---------------- DARK MODE OVERRIDES (Midnight Cyberpunk Theme) ---------------- */
+        html.dark body { background-color: #080414; color: #f8fafc; }
+        html.dark .dot-pattern { background-image: radial-gradient(#9D4EDD 2px, transparent 2px); opacity: 0.18; }
         html.dark .neo-border { border-color: #ffffff; }
-        html.dark .neo-shadow { box-shadow: 6px 6px 0px #ffffff; }
-        html.dark .neo-shadow-sm { box-shadow: 4px 4px 0px #ffffff; }
+        html.dark .neo-shadow { box-shadow: 6px 6px 0px #FF90E8; }
+        html.dark .neo-shadow-sm { box-shadow: 4px 4px 0px #2176FF; }
         html.dark .neo-btn:active { box-shadow: 0px 0px 0px #ffffff; }
         
         /* Dark Mode Colors Adaptation */
-        html.dark .bg-white { background-color: #1e293b !important; color: #f8fafc; }
+        html.dark .bg-white { background-color: #120c24 !important; color: #f8fafc; }
         html.dark .text-\[\#111827\] { color: #f8fafc !important; }
         html.dark .border-\[\#111827\] { border-color: #ffffff !important; }
-        html.dark .shadow-\[4px_4px_0px_\#111827\] { box-shadow: 4px 4px 0px #ffffff !important; }
-        html.dark .shadow-\[6px_6px_0px_\#111827\] { box-shadow: 6px 6px 0px #ffffff !important; }
-        html.dark .shadow-\[8px_8px_0px_\#111827\] { box-shadow: 8px 8px 0px #ffffff !important; }
-        html.dark .shadow-\[12px_12px_0px_\#111827\] { box-shadow: 12px 12px 0px #ffffff !important; }
+        html.dark .shadow-\[4px_4px_0px_\#111827\] { box-shadow: 4px 4px 0px #FFD500 !important; }
+        html.dark .shadow-\[6px_6px_0px_\#111827\] { box-shadow: 6px 6px 0px #FF90E8 !important; }
+        html.dark .shadow-\[8px_8px_0px_\#111827\] { box-shadow: 8px 8px 0px #2176FF !important; }
+        html.dark .shadow-\[12px_12px_0px_\#111827\] { box-shadow: 12px 12px 0px #9D4EDD !important; }
         html.dark .shadow-\[2px_2px_0px_\#111827\] { box-shadow: 2px 2px 0px #ffffff !important; }
         
         /* Specific element fixes in dark mode */
-        html.dark nav { background-color: #1e293b !important; border-bottom-color: #ffffff !important; }
-        html.dark #main-footer { background-color: #0f172a !important; border-top-color: #ffffff !important; }
-        html.dark input, html.dark select { background-color: #334155 !important; color: #f8fafc !important; border-color: #ffffff !important; }
-        html.dark input:focus, html.dark select:focus { background-color: #475569 !important; }
-        html.dark .pastel-6 { background-color: #334155 !important; }
-        html.dark table th { background-color: #334155 !important; color: white !important; border-color: #ffffff !important; }
-        html.dark table td { border-color: #ffffff !important; background-color: #1e293b; color: white !important;}
-        html.dark table tr:hover td { background-color: #334155 !important; }
-        html.dark .custom-scrollbar::-webkit-scrollbar-track { background: #1e293b; border-left-color: #ffffff; border-right-color: #ffffff; }
-        html.dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #ffffff; border-color: #1e293b; }
+        html.dark nav { background-color: #120c24 !important; border-bottom-color: #ffffff !important; }
+        html.dark #main-footer { background-color: #080414 !important; border-top-color: #ffffff !important; }
+        html.dark input, html.dark select { background-color: #1c1538 !important; color: #f8fafc !important; border-color: #ffffff !important; }
+        html.dark input:focus, html.dark select:focus { background-color: #271d4a !important; }
+        html.dark .pastel-6 { background-color: #1c1538 !important; }
+        html.dark table th { background-color: #1c1538 !important; color: white !important; border-color: #ffffff !important; }
+        html.dark table td { border-color: #ffffff !important; background-color: #120c24; color: white !important;}
+        html.dark table tr:hover td { background-color: #1c1538 !important; }
+        html.dark .custom-scrollbar::-webkit-scrollbar-track { background: #120c24; border-left-color: #ffffff; border-right-color: #ffffff; }
+        html.dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #ffffff; border-color: #120c24; }
         html.dark svg path { stroke: #ffffff; }
-        html.dark #qr-reader { border-color: white !important; box-shadow: 6px 6px 0px white !important; background: #1e293b; }
-        html.dark #qr-reader__scan_region { background: #0f172a; }
-        html.dark #qr-reader button { background: #334155; color: white; border-color: white; box-shadow: 4px 4px 0px white; }
+        html.dark #qr-reader { border-color: white !important; box-shadow: 6px 6px 0px #FFD500 !important; background: #120c24; }
+        html.dark #qr-reader__scan_region { background: #080414; }
+        html.dark #qr-reader button { background: #1c1538; color: white; border-color: white; box-shadow: 4px 4px 0px #2176FF; }
     </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col relative z-0 bg-[#FF4A1C] text-[#111827]">
+<body class="antialiased min-h-screen flex flex-col relative z-0 bg-[#1E40AF] text-[#111827] paper-grain">
 
     <!-- 🎨 ADVANCED NEO-BRUTALISM BACKGROUND GRAPHICS -->
     <div class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
-        <canvas id="bg-canvas" class="absolute inset-0 w-full h-full"></canvas>
+        <div class="absolute inset-0 dot-pattern"></div>
         
         <!-- Element 1: Browser Window (Top Left) -->
         <div class="absolute top-[8%] left-[2%] md:top-[12%] md:left-[5%] w-[180px] md:w-[260px] bg-[#FFD500] neo-border neo-shadow hidden md:block anim-float-fast">
@@ -282,9 +296,29 @@
                     </div>
                 </div>
 
-                <div class="absolute -top-10 sm:-top-12 left-1/2 transform -translate-x-1/2 z-10">
-                    <div class="w-[70px] h-[70px] sm:w-[90px] sm:h-[90px] bg-[#9D4EDD] border-[4px] border-[#111827] dark:border-white rounded-none flex items-center justify-center shadow-[6px_6px_0px_#111827] dark:shadow-[6px_6px_0px_white] anim-float-fast">
-                        <svg class="w-8 h-8 sm:w-12 sm:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <div class="absolute -top-12 sm:-top-16 left-1/2 transform -translate-x-1/2 z-20">
+                    <div class="w-[90px] h-[90px] sm:w-[120px] sm:h-[120px] bg-[#FFD500] border-[4px] border-[#111827] dark:border-white rounded-none flex items-center justify-center shadow-[6px_6px_0px_#111827] dark:shadow-[6px_6px_0px_white] anim-float-fast relative overflow-hidden">
+                        <!-- Retro Star Mascot SVG -->
+                        <svg id="mascot-svg" class="w-full h-full p-1 sm:p-2" viewBox="0 0 100 100">
+                            <!-- Star Legs -->
+                            <path d="M 38 82 L 35 93 L 30 93" fill="none" stroke="#111827" stroke-width="4.5" stroke-linecap="round" />
+                            <path d="M 62 82 L 65 93 L 70 93" fill="none" stroke="#111827" stroke-width="4.5" stroke-linecap="round" />
+                            <!-- Star Body -->
+                            <path d="M 50 5 L 63 36 L 95 38 L 70 60 L 78 92 L 50 74 L 22 92 L 30 60 L 5 38 L 37 36 Z" fill="#F4C430" stroke="#111827" stroke-width="4.5" stroke-linejoin="round" />
+                            <!-- Cheeks -->
+                            <circle cx="33" cy="51" r="3.5" fill="#E11D48" opacity="0.7"/>
+                            <circle cx="67" cy="51" r="3.5" fill="#E11D48" opacity="0.7"/>
+                            <!-- Left Eye -->
+                            <g id="mascot-eye-l">
+                                <circle cx="41" cy="45" r="4.5" fill="#111827"/>
+                            </g>
+                            <!-- Right Eye -->
+                            <g id="mascot-eye-r">
+                                <circle cx="59" cy="45" r="4.5" fill="#111827"/>
+                            </g>
+                            <!-- Mouth -->
+                            <path id="mascot-mouth" d="M 45 56 Q 50 59 55 56" fill="none" stroke="#111827" stroke-width="3.5" stroke-linecap="round" />
+                        </svg>
                     </div>
                 </div>
                 
@@ -1372,21 +1406,44 @@
             document.body.classList.remove('overflow-hidden', 'h-screen');
         }
 
+        function setMascotExpression(expression) {
+            const mouth = document.getElementById('mascot-mouth');
+            const eyeLeft = document.getElementById('mascot-eye-l');
+            const eyeRight = document.getElementById('mascot-eye-r');
+            if (!mouth || !eyeLeft || !eyeRight) return;
+            
+            if (expression === 'happy') {
+                mouth.setAttribute('d', 'M 40 54 Q 50 63 60 54');
+                eyeLeft.innerHTML = '<path d="M 36 48 Q 41 40 46 48" fill="none" stroke="#111827" stroke-width="4" stroke-linecap="round"/>';
+                eyeRight.innerHTML = '<path d="M 54 48 Q 59 40 64 48" fill="none" stroke="#111827" stroke-width="4" stroke-linecap="round"/>';
+            } else if (expression === 'sad') {
+                mouth.setAttribute('d', 'M 42 61 Q 50 53 58 61');
+                eyeLeft.innerHTML = '<path d="M 37 41 L 45 49 M 45 41 L 37 49" fill="none" stroke="#111827" stroke-width="4" stroke-linecap="round"/>';
+                eyeRight.innerHTML = '<path d="M 55 41 L 63 49 M 63 41 L 55 49" fill="none" stroke="#111827" stroke-width="4" stroke-linecap="round"/>';
+            } else {
+                mouth.setAttribute('d', 'M 45 56 Q 50 59 55 56');
+                eyeLeft.innerHTML = '<circle cx="41" cy="45" r="4.5" fill="#111827"/>';
+                eyeRight.innerHTML = '<circle cx="59" cy="45" r="4.5" fill="#111827"/>';
+            }
+        }
+
         function performStudentLogin(sid) {
             let foundStd = null; let foundCls = null;
             for(let c of appData.classes) { let s = c.students.find(x => x.studentId === sid); if(s) { foundStd = s; foundCls = c; break; } }
             if(!foundStd) {
                 document.getElementById('loading-overlay').classList.add('hidden'); document.getElementById('loading-overlay').classList.remove('flex');
                 document.getElementById('student-search-panel').classList.remove('hidden'); document.getElementById('student-error').classList.remove('hidden');
+                setMascotExpression('sad');
             } else {
                 loggedInStudentId = sid; document.getElementById('student-error').classList.add('hidden'); document.getElementById('student-search-panel').classList.add('hidden');
                 document.getElementById('loading-overlay').classList.add('hidden'); document.getElementById('loading-overlay').classList.remove('flex');
                 renderStudentResult(foundStd, foundCls); document.getElementById('student-result').classList.remove('hidden');
+                setMascotExpression('happy');
             }
             toggleBodyScroll();
         }
-        function searchStudent() { const sid = document.getElementById('search-std-id').value.trim(); if(!sid) return showModal({title:"แจ้งเตือน", msg:"กรุณากรอกรหัสนักเรียน 5 หลัก"}); performStudentLogin(sid); }
-        function logoutStudent() { loggedInStudentId = null; document.getElementById('search-std-id').value = ''; document.getElementById('student-result').classList.add('hidden'); document.getElementById('loading-overlay').classList.add('hidden'); document.getElementById('loading-overlay').classList.remove('flex'); document.getElementById('student-search-panel').classList.remove('hidden'); const currentUrl = window.location.href.split('?')[0]; window.history.replaceState({}, document.title, currentUrl); toggleBodyScroll(); }
+        function searchStudent() { const sid = document.getElementById('search-std-id').value.trim(); if(!sid) return showModal({title:"แจ้งเตือน", msg:"กรุณากรอกรหัสนักเรียน 5 หลัก"}); setMascotExpression('neutral'); performStudentLogin(sid); }
+        function logoutStudent() { loggedInStudentId = null; document.getElementById('search-std-id').value = ''; document.getElementById('student-result').classList.add('hidden'); document.getElementById('loading-overlay').classList.add('hidden'); document.getElementById('loading-overlay').classList.remove('flex'); document.getElementById('student-search-panel').classList.remove('hidden'); setMascotExpression('neutral'); const currentUrl = window.location.href.split('?')[0]; window.history.replaceState({}, document.title, currentUrl); toggleBodyScroll(); }
         
         function renderStudentResult(std, cls) {
             const stat = calculateStudentScore(std, cls.assignments); 
@@ -1608,102 +1665,7 @@
             spinTick();
         }
 
-        // 🎨 Neo-Brutalist Interactive Canvas Dots (Mouse Repelling)
-        const canvas = document.getElementById('bg-canvas');
-        if (canvas) {
-            const ctx = canvas.getContext('2d');
-            let dots = [];
-            const spacing = 40; // spacing between dots
-            const dotRadius = 2.5; // size of dot
-            const repulsionRadius = 100;
-            const maxDisplacement = 35;
-            const easeSpeed = 0.1;
-            
-            let mouse = { x: -1000, y: -1000 };
-            
-            function resize() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                initDots();
-            }
-            
-            function initDots() {
-                dots = [];
-                const cols = Math.floor(canvas.width / spacing) + 2;
-                const rows = Math.floor(canvas.height / spacing) + 2;
-                for (let i = 0; i < cols; i++) {
-                    for (let j = 0; j < rows; j++) {
-                        const hx = i * spacing;
-                        const hy = j * spacing;
-                        dots.push({
-                            hx: hx,
-                            hy: hy,
-                            x: hx,
-                            y: hy
-                        });
-                    }
-                }
-            }
-            
-            window.addEventListener('resize', resize);
-            
-            window.addEventListener('mousemove', (e) => {
-                mouse.x = e.clientX;
-                mouse.y = e.clientY;
-            });
-            
-            window.addEventListener('mouseleave', () => {
-                mouse.x = -1000;
-                mouse.y = -1000;
-            });
-            
-            window.addEventListener('touchmove', (e) => {
-                if (e.touches.length > 0) {
-                    mouse.x = e.touches[0].clientX;
-                    mouse.y = e.touches[0].clientY;
-                }
-            });
-            window.addEventListener('touchend', () => {
-                mouse.x = -1000;
-                mouse.y = -1000;
-            });
 
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Detect theme color dynamically
-                const isDark = document.documentElement.classList.contains('dark');
-                ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(17, 24, 39, 0.15)';
-                
-                dots.forEach(dot => {
-                    const dx = dot.x - mouse.x;
-                    const dy = dot.y - mouse.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    
-                    let tx = dot.hx;
-                    let ty = dot.hy;
-                    
-                    if (dist < repulsionRadius) {
-                        const force = (repulsionRadius - dist) / repulsionRadius;
-                        const angle = Math.atan2(dy, dx);
-                        tx = dot.hx + Math.cos(angle) * force * maxDisplacement;
-                        ty = dot.hy + Math.sin(angle) * force * maxDisplacement;
-                    }
-                    
-                    dot.x += (tx - dot.x) * easeSpeed;
-                    dot.y += (ty - dot.y) * easeSpeed;
-                    
-                    ctx.beginPath();
-                    ctx.arc(dot.x, dot.y, dotRadius, 0, Math.PI * 2);
-                    ctx.fill();
-                });
-                
-                requestAnimationFrame(animate);
-            }
-            
-            resize();
-            animate();
-        }
 
         window.onload = async () => {
             populateDashDropdown();
