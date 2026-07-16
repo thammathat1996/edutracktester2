@@ -141,9 +141,7 @@
 
     <!-- 🎨 ADVANCED NEO-BRUTALISM BACKGROUND GRAPHICS -->
     <div class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
-        <!-- Interactive Glow (Behind dot-pattern) -->
-        <div id="cursor-glow" class="absolute w-[400px] h-[400px] md:w-[650px] md:h-[650px] rounded-full opacity-45 dark:opacity-25 blur-[90px] md:blur-[130px] pointer-events-none -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300" style="background: radial-gradient(circle, #2176FF 0%, #FF90E8 35%, #FFD500 70%, transparent 100%); top: -9999px; left: -9999px;"></div>
-        <div class="absolute inset-0 dot-pattern"></div>
+        <canvas id="bg-canvas" class="absolute inset-0 w-full h-full"></canvas>
         
         <!-- Element 1: Browser Window (Top Left) -->
         <div class="absolute top-[8%] left-[2%] md:top-[12%] md:left-[5%] w-[180px] md:w-[260px] bg-[#FFD500] neo-border neo-shadow hidden md:block anim-float-fast">
@@ -1610,30 +1608,101 @@
             spinTick();
         }
 
-        // 🌌 Interactive Cursor Glow
-        const cursorGlow = document.getElementById('cursor-glow');
-        if (cursorGlow) {
-            const updateGlow = (x, y) => {
-                cursorGlow.style.left = `${x}px`;
-                cursorGlow.style.top = `${y}px`;
-            };
+        // 🎨 Neo-Brutalist Interactive Canvas Dots (Mouse Repelling)
+        const canvas = document.getElementById('bg-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let dots = [];
+            const spacing = 40; // spacing between dots
+            const dotRadius = 2.5; // size of dot
+            const repulsionRadius = 100;
+            const maxDisplacement = 35;
+            const easeSpeed = 0.1;
+            
+            let mouse = { x: -1000, y: -1000 };
+            
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                initDots();
+            }
+            
+            function initDots() {
+                dots = [];
+                const cols = Math.floor(canvas.width / spacing) + 2;
+                const rows = Math.floor(canvas.height / spacing) + 2;
+                for (let i = 0; i < cols; i++) {
+                    for (let j = 0; j < rows; j++) {
+                        const hx = i * spacing;
+                        const hy = j * spacing;
+                        dots.push({
+                            hx: hx,
+                            hy: hy,
+                            x: hx,
+                            y: hy
+                        });
+                    }
+                }
+            }
+            
+            window.addEventListener('resize', resize);
             
             window.addEventListener('mousemove', (e) => {
-                window.requestAnimationFrame(() => updateGlow(e.clientX, e.clientY));
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+            
+            window.addEventListener('mouseleave', () => {
+                mouse.x = -1000;
+                mouse.y = -1000;
             });
             
             window.addEventListener('touchmove', (e) => {
                 if (e.touches.length > 0) {
-                    window.requestAnimationFrame(() => updateGlow(e.touches[0].clientX, e.touches[0].clientY));
+                    mouse.x = e.touches[0].clientX;
+                    mouse.y = e.touches[0].clientY;
                 }
             });
+            window.addEventListener('touchend', () => {
+                mouse.x = -1000;
+                mouse.y = -1000;
+            });
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Detect theme color dynamically
+                const isDark = document.documentElement.classList.contains('dark');
+                ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(17, 24, 39, 0.15)';
+                
+                dots.forEach(dot => {
+                    const dx = dot.x - mouse.x;
+                    const dy = dot.y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    let tx = dot.hx;
+                    let ty = dot.hy;
+                    
+                    if (dist < repulsionRadius) {
+                        const force = (repulsionRadius - dist) / repulsionRadius;
+                        const angle = Math.atan2(dy, dx);
+                        tx = dot.hx + Math.cos(angle) * force * maxDisplacement;
+                        ty = dot.hy + Math.sin(angle) * force * maxDisplacement;
+                    }
+                    
+                    dot.x += (tx - dot.x) * easeSpeed;
+                    dot.y += (ty - dot.y) * easeSpeed;
+                    
+                    ctx.beginPath();
+                    ctx.arc(dot.x, dot.y, dotRadius, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                
+                requestAnimationFrame(animate);
+            }
             
-            document.addEventListener('mouseleave', () => {
-                cursorGlow.style.opacity = '0';
-            });
-            document.addEventListener('mouseenter', () => {
-                cursorGlow.style.opacity = '';
-            });
+            resize();
+            animate();
         }
 
         window.onload = async () => {
